@@ -44,7 +44,7 @@ class Edit extends Component {
         let customer = this.state.customer;
         Object.keys(customer).map((key, index) => {
             //console.log(customer);
-            loop.push(<input type='text' onChange={this.handleChange.bind(this, key)} value={customer[key]}/>);
+            loop.push(<input key={key} type='text' onChange={this.handleChange.bind(this, key)} value={customer[key]}/>);
         });
         return loop;
     }

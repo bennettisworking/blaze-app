@@ -2,30 +2,24 @@ import React, {Component} from 'react';
 //import axios from 'axios';
 import Edit from './Edit';
 import List from './List';
-
+import Pagination from './Pagination';
 class Customers extends Component {
+
+  constructor(){
+    super();
+    this.recordsPerPage = 10;
+  }
+
   state = {
     customers: []
   }
 
   componentDidMount(){
-    this.getCustomers();
+    this.getCustomers(3);
   }
 
-  getCount = () => {
-    const url = 'http://localhost:5000/api/count';
-      fetch(url)
-        .then((res) => res.json())
-        .then(data => {
-          this.setState({
-            total_rows: data
-          })
-      })
-      .catch(err => console.log(err))
-  }
-
-  getCustomers = () => {
-      const url = 'http://localhost:5000/api/customer';
+  getCustomers = (page) => {
+      const url = 'http://localhost:5000/api/customer?page=' + page + '&pagelimit=' + this.recordsPerPage;
       fetch(url)
         .then((res) => res.json())
         .then(data => {
@@ -54,6 +48,7 @@ class Customers extends Component {
         <h3>Customers</h3>
         <Edit getCustomers={this.getCustomers}/>
         <List customers={customers} deleteCustomer={this.deleteCustomer}/>
+        <Pagination getCustomers={this.getCustomers} customerCount = {this.state.customers.length} recordsPerPage={this.recordsPerPage}/>
       </div>
     )
   }

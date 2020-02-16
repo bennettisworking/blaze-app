@@ -3,13 +3,16 @@ const router = express.Router();
 const Customers = require('../models/customer');
 
 router.get('/customer', (req, res, next) => {
-  Customers.find({})
-    .then(data => res.json(data))
-    .catch(next)
-});
-
+  const skipcount = (req.query.page - 1) * (req.query.pagelimit);
+  Customers.count({}).then(data => {
+    Customers.find({}).skip(skipcount).limit(Number(req.query.pagelimit))
+      .then(data => res.json(data))
+      .catch(next)
+    });
+  })
+  
 router.post('/customer', (req, res, next) => {
-  /*if(req.body.action){*/
+  /*if(req.body.last_name){*/
   Customers.create(req.body)
   	.then(data => res.json(data))
   	.catch(next)
@@ -34,7 +37,7 @@ router.get('/count', (req, res, next) => {
 
 router.get('/gen/:count', (req, res, next) => {
   //let counter = (req.params.count < 1) ? req.params.count : 1;
-  /*if(req.body.action){*/
+  /*if(req.body.last_name){*/
   for(let l=0;l<req.params.count;l++){
   let bod = fakereqBody();
   Customers.create(bod)
