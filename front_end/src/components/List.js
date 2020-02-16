@@ -2,35 +2,31 @@ import React, {Component} from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import './List.css';
 
 class List extends Component {
 
     state = {
       columnDefs: [{
-        headerName: "Last Name", field: "last_name"
+        headerName: "Last Name", field: "last_name", editable: true, flex: 1
       }, {
-      	headerName: "First Name", field: "first_name"
+      	headerName: "First Name", field: "first_name", editable: true, flex: 1
       }, {
-        headerName: "Email", field: "email"
+        headerName: "Email", field: "email", editable: true, flex: 1
       }, {
-        headerName: "Phone", field: "phone"
+        headerName: "Phone", field: "phone", editable: true, flex: 1
       }],
       rowData: []
     }
 
   render() {
 	  return (
-	  	<div>
-			<div
-        className="ag-theme-balham"
-        style={{
-        height: '500px',
-        width: '900px' }}>
-        <AgGridReact
+	  	<div className="ag-grid__container ag-theme-balham">
+		<AgGridReact
           columnDefs={this.state.columnDefs} 
           rowData={this.props.customers}>
         </AgGridReact>
-	    </div>
+        <button className="list-view__button" onClick={this.props.updateCustomers}>Save changes</button>
 	    </div>
 		)
 	}

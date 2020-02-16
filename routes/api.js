@@ -23,11 +23,9 @@ router.post('/customer', (req, res, next) => {
   }*/
 });
 
-router.put('/customer/:id', (req, res, next) => {
-  /*if(req.body.last_name){*/
-  const id = req.params.id;
-  Customers.update({_id: id}, {$set:{'first_name': req.body.first_name, 'last_name': req.body.last_name, 'last_name': req.body.email, 'last_name': req.body.phone}})
-    .then(data => res.json(data))
+router.put('/customers', (req, res, next) => {
+ /* Customers.updateMany({}, {'$set':{'*':'*'}}
+  .then(data => res.json(data))
     .catch(next)
   /*}else {
     res.json({

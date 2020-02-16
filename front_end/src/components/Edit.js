@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Edit.css';
 //import axios from 'axios';
 
 class Edit extends Component {
@@ -29,13 +30,11 @@ class Edit extends Component {
 
     createInputs = () => {
         let loop = [];
-
-        let customer = this.props.currentCustomer;
-              console.log('moo');
-        console.log(customer);
+        let customer = this.state.customer;
         Object.keys(customer).map((key, index) => {
             //console.log(customer);
-            loop.push(<input key={key} type='text' onChange={this.handleChange.bind(this, key)} value={customer[key]}/>);
+            let fieldName = key.replace(/_/g, " ")
+            loop.push(<input className='edit-form__input' key={key} type='text' placeholder={fieldName} onChange={this.handleChange.bind(this, key)} value={customer[key]}/>);
         });
         return loop;
     }
@@ -43,9 +42,9 @@ class Edit extends Component {
     render() {
         let { customer } = this.state;
         return (
-            <div>
-    			<button onClick={this.props.addCustomer}>meow</button>
+            <div className="edit-form">
     			{this.createInputs()}
+    			<button className="edit-form__button" onClick={this.props.addCustomer.bind(this, this.state.customer)}>Create new customer</button>
     		</div>
         )
     }

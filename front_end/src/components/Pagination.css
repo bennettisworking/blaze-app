@@ -1,0 +1,15 @@
+.pagination__link {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 600;
+	font-size: 11px;
+	padding: 2px 3px;
+	margin: 10px 2px;
+	border: 1px solid rgb(40, 180, 220);
+	color: rgb(40, 180, 220);
+	display: inline-block;
+	cursor: pointer;
+}
+
+.pagination__link.active {
+	background-color: rgb(212, 243, 250);
+}

@@ -1,0 +1,37 @@
+.ag-grid__container {
+	width: 80%;
+	height: 314px;
+	margin: 0 auto;
+	text-align: left;
+	font-size: 12px;
+	letter-spacing: -.2px;
+	position: relative;
+}
+
+.ag-root-wrapper {
+	font-family: 'Roboto', sans-serif;
+}
+
+.ag-grid__container .ag-header {
+	background-color: rgb(168, 231, 245);
+	font-weight: 600;
+}
+
+.ag-header-cell, .ag-cell {
+}
+
+.list-view__button {
+	background-color: rgb(45, 197, 230);
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 600;
+	border: none;
+	border-radius: 3px;
+	padding: 7px 8px;
+	cursor: pointer;
+	margin: 0 0 0 4px;
+	vertical-align: middle;
+	position: absolute;
+	right: 0;
+	top: 322px;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Pagination.css';
 //import axios from 'axios';
 
 class Pagination extends Component {
@@ -23,11 +24,18 @@ class Pagination extends Component {
       .catch(err => console.log(err))
     }
 
+    setPage(page) {
+        this.setState({
+            currentPage: page
+        });
+        this.props.getCustomers(page);
+    }
+
     render() {
         let links = [];
         const totalPages = Math.ceil(this.state.totalCustomers/this.props.recordsPerPage);
         for(let a = 0; a < totalPages; a++) {
-            links.push(<div key={a} onClick={this.props.getCustomers.bind(this, a + 1)}>Page {a + 1}</div>)
+            links.push(<div key={a} className={"pagination__link " + (this.state.currentPage==(a + 1)  ? "active" : "")} onClick={this.setPage.bind(this, (a + 1))}>{a + 1}</div>)
         }
         return (
             <div>

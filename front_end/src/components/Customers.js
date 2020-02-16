@@ -43,8 +43,7 @@ class Customers extends Component {
     }
   }
 
-  addCustomer = () => {
-        const customer = this.state.customer;
+  addCustomer = (customer) => {
         if (customer.last_name && customer.last_name.length > 0) {
             const url = 'http://localhost:5000/api/customer';
             const options = {
@@ -57,7 +56,7 @@ class Customers extends Component {
             fetch(url, options)
                 .then(response => {
                     console.log(response.status);
-                    this.props.getCustomers();
+                    this.getCustomers(1);
                 })
                 .catch(err => console.log(err));
         } else {
@@ -65,8 +64,15 @@ class Customers extends Component {
         }
   }
 
-  updateCustomer = (id) => {
-    const url = 'http://localhost:5000/api/customer' + id;
+  updateCustomers = () => {
+   /* const url = 'http://localhost:5000/api/customers';
+    const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify(this.state.customers)
+            };
       fetch(url)
         .then((res) => res.json())
         .then(data => {
@@ -74,7 +80,7 @@ class Customers extends Component {
             customers: data
           })
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err))*/
   }
 
   deleteCustomer = (id) => {
@@ -93,7 +99,7 @@ class Customers extends Component {
       <div>
         <h3>Customers</h3>
         <Edit getCustomers={this.getCustomers} currentCustomer={this.state.currentCustomer} addCustomer={this.addCustomer}/>
-        <List customers={customers} setCurrentCustomer={this.setCurrentCustomer}/>
+        <List customers={customers} setCurrentCustomer={this.setCurrentCustomer} updateCustomers={this.updateCustomers}/>
         <Pagination getCustomers={this.getCustomers} customerCount = {this.state.customers.length} recordsPerPage={this.recordsPerPage}/>
       </div>
     )
