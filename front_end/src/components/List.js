@@ -1,29 +1,39 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
-const List = ({customers, setCurrentCustomer}) => {
-  return (
-    <ul>
-      {
-        customers &&
-          customers.length > 0 ?
-            (
-              customers.map(customer => {
-                return (
-                  <li key={customer._id} onClick={() => 
-                  	setCurrentCustomer(customer._id)}>
-                  	{customer.first_name + ' ' + customer.last_name}<div className="pipe">|</div>
-                  	{customer.email}
-                  	</li>
-                )
-              })
-            )
-            :
-            (
-              <li>No customers in the database.</li>
-            )
-      }
-    </ul>
-  )
+class List extends Component {
+
+    state = {
+      columnDefs: [{
+        headerName: "Last Name", field: "last_name"
+      }, {
+      	headerName: "First Name", field: "first_name"
+      }, {
+        headerName: "Email", field: "email"
+      }, {
+        headerName: "Phone", field: "phone"
+      }],
+      rowData: []
+    }
+
+  render() {
+	  return (
+	  	<div>
+			<div
+        className="ag-theme-balham"
+        style={{
+        height: '500px',
+        width: '900px' }}>
+        <AgGridReact
+          columnDefs={this.state.columnDefs} 
+          rowData={this.props.customers}>
+        </AgGridReact>
+	    </div>
+	    </div>
+		)
+	}
 }
 
 export default List
