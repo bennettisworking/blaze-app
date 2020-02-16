@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage" : "http://bennettsportfolio.com/projects/blaze-app",
   "scripts": {
     "start": "node index.js",
     "start-watch": "nodemon index.js",
