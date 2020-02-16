@@ -1,6 +1,6 @@
 import React from 'react';
 
-const List = ({customers, deleteCustomer}) => {
+const List = ({customers, setCurrentCustomer}) => {
   return (
     <ul>
       {
@@ -10,7 +10,7 @@ const List = ({customers, deleteCustomer}) => {
               customers.map(customer => {
                 return (
                   <li key={customer._id} onClick={() => 
-                  	deleteCustomer(customers._id)}>
+                  	setCurrentCustomer(customer._id)}>
                   	{customer.first_name + ' ' + customer.last_name}<div className="pipe">|</div>
                   	{customer.email}
                   	</li>

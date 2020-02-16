@@ -11,15 +11,62 @@ class Customers extends Component {
   }
 
   state = {
-    customers: []
+    customers: [],
+    currentCustomer: {}
   }
 
   componentDidMount(){
-    this.getCustomers(3);
+    this.getCustomers(1);
   }
 
   getCustomers = (page) => {
-      const url = 'http://localhost:5000/api/customer?page=' + page + '&pagelimit=' + this.recordsPerPage;
+    const url = 'http://localhost:5000/api/customer?page=' + page + '&pagelimit=' + this.recordsPerPage;
+    fetch(url)
+      .then((res) => res.json())
+      .then(data => {
+        this.setState({
+          customers: data,
+          currentCustomer: data[0]
+        })
+      })
+    .catch(err => console.log(err))
+  }
+
+  setCurrentCustomer = (id) => {
+    const customer = this.state.customers.find(cust => cust._id==id);
+    if(customer){
+      console.log(customer);
+      this.setState({
+
+        currentCustomer: customer
+      })
+    }
+  }
+
+  addCustomer = () => {
+        const customer = this.state.customer;
+        if (customer.last_name && customer.last_name.length > 0) {
+            const url = 'http://localhost:5000/api/customer';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify(customer)
+            };
+            fetch(url, options)
+                .then(response => {
+                    console.log(response.status);
+                    this.props.getCustomers();
+                })
+                .catch(err => console.log(err));
+        } else {
+            console.log('input field required')
+        }
+  }
+
+  updateCustomer = (id) => {
+    const url = 'http://localhost:5000/api/customer' + id;
       fetch(url)
         .then((res) => res.json())
         .then(data => {
@@ -28,7 +75,6 @@ class Customers extends Component {
           })
       })
       .catch(err => console.log(err))
-
   }
 
   deleteCustomer = (id) => {
@@ -46,8 +92,8 @@ class Customers extends Component {
     return(
       <div>
         <h3>Customers</h3>
-        <Edit getCustomers={this.getCustomers}/>
-        <List customers={customers} deleteCustomer={this.deleteCustomer}/>
+        <Edit getCustomers={this.getCustomers} currentCustomer={this.state.currentCustomer} addCustomer={this.addCustomer}/>
+        <List customers={customers} setCurrentCustomer={this.setCurrentCustomer}/>
         <Pagination getCustomers={this.getCustomers} customerCount = {this.state.customers.length} recordsPerPage={this.recordsPerPage}/>
       </div>
     )

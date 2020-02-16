@@ -23,6 +23,19 @@ router.post('/customer', (req, res, next) => {
   }*/
 });
 
+router.put('/customer/:id', (req, res, next) => {
+  /*if(req.body.last_name){*/
+  const id = req.params.id;
+  Customers.update({_id: id}, {$set:{'first_name': req.body.first_name, 'last_name': req.body.last_name, 'last_name': req.body.email, 'last_name': req.body.phone}})
+    .then(data => res.json(data))
+    .catch(next)
+  /*}else {
+    res.json({
+      error: "The input field is empty"
+    })
+  }*/
+});
+
 router.delete('/customer/:id', (req, res, next) => {
   Customers.findOneAndDelete({"_id": req.params.id})
     .then(data => res.json(data))
@@ -57,11 +70,11 @@ const vowels = [97, 101, 105, 111, 117];
 const consonants = [98, 99, 100, 102, 103, 104, 106, 107, 108, 109, 110, 112,
 113, 114, 115, 116, 118, 119, 120, 121, 122];
 
-function getVowel(){
+getVowel = () => {
   return String.fromCharCode(vowels[Math.floor(Math.random()*5)]);
 }
 
-function getConsonant(i){
+getConsonant = (i) => {
   let a = 0;
   if(i){
     a = -32;
@@ -69,7 +82,7 @@ function getConsonant(i){
   return String.fromCharCode(consonants[Math.floor(Math.random()*21)]+a);
 }
 
-function generateName(){
+generateName = () => {
   let name = '';
   name += getConsonant(1);
   name += getVowel();
@@ -83,19 +96,18 @@ function generateName(){
   //console.log(name);
 }
 
-function generateEmail(){
+generateEmail = () => {
   let name = generateName();
   name += "@gmail.com";
   return name;
 }
 
-function generatePhone(){
+generatePhone = () => {
   return Math.random().toString().slice(2,11);
 }
 
-function fakereqBody(){
+fakereqBody = () => {
   let o = {};
-
   o.last_name = generateName();
   o.first_name = generateName();
   o.email = generateEmail();

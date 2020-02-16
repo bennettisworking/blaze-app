@@ -27,7 +27,7 @@ class Pagination extends Component {
         let links = [];
         const totalPages = Math.ceil(this.state.totalCustomers/this.props.recordsPerPage);
         for(let a = 0; a < totalPages; a++) {
-            links.push(<div key={a} onClick={this.props.getCustomers.bind(this, a)}>Page {a + 1}</div>)
+            links.push(<div key={a} onClick={this.props.getCustomers.bind(this, a + 1)}>Page {a + 1}</div>)
         }
         return (
             <div>
